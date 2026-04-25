@@ -1,49 +1,397 @@
-import { Link } from 'react-router-dom';
+import { CropTile, ELEMENTS, type CropElement } from '../components/CropTile';
+
+type Feature = {
+  element: CropElement;
+  title: string;
+  tagline: string;
+  body: string;
+  accent: string;
+  spin?: boolean;
+  bobDelay?: string;
+};
+
+const HEROES: Feature[] = [
+  {
+    element: ELEMENTS.player,
+    title: 'Patty Pounce',
+    tagline: 'The Pink-Suited Snack Snatcher',
+    body:
+      'Equipped with rocket sneakers, retro goggles, and an appetite the size of a small moon, Patty leaps from beam to beam in search of every last morsel. One small jump for cat, one giant gulp for cat-kind.',
+    accent: 'from-yum-pink-bright/30 to-yum-pink/0',
+    bobDelay: '',
+  },
+];
+
+const ENEMIES: Feature[] = [
+  {
+    element: ELEMENTS.pig,
+    title: 'Sir Snortimus the Snouty',
+    tagline: 'Boss-piggy of the Wooden Wing',
+    body:
+      'A jelly-bellied bandit with goggles he stole from your closet. Bonk him on the head and he pops like a green water balloon — but step in front of those tusks and you’re yesterday’s sausage.',
+    accent: 'from-yum-green/40 to-yum-green/0',
+    bobDelay: 'bob-delay-1',
+  },
+  {
+    element: ELEMENTS.spikes,
+    title: 'Tickle-Tooth Trap',
+    tagline: 'A Row of Surprisingly Pointy Opinions',
+    body:
+      'Polished, pristine, and pointing straight up. Looks like a hairbrush. Acts like a hairbrush you should never, ever land on. Time your jumps or rethink your life.',
+    accent: 'from-slate-300/30 to-slate-400/0',
+    bobDelay: 'bob-delay-2',
+  },
+  {
+    element: ELEMENTS.saw,
+    title: 'The Whirlybuzz',
+    tagline: 'A Disagreeable Cog with Ambitions',
+    body:
+      'Spins at exactly the wrong speed. Dreams of becoming a clock, settles for being a hazard. Cling to the wrong wall and it will gladly redesign your haircut.',
+    accent: 'from-zinc-400/40 to-zinc-500/0',
+    spin: true,
+    bobDelay: 'bob-delay-3',
+  },
+];
+
+const TREASURES: Feature[] = [
+  {
+    element: ELEMENTS.cherries,
+    title: 'Sugar Bombs',
+    tagline: 'Twin Cherries of Power',
+    body:
+      'Pluck the pair, pocket the points. Cherries are the connoisseur’s candy: a bright +25 to your score and a tiny burst of confetti for your soul.',
+    accent: 'from-yum-red-bright/35 to-yum-red/0',
+    bobDelay: '',
+  },
+  {
+    element: ELEMENTS.apple,
+    title: 'Crunchcrisp',
+    tagline: 'The Stage Goal',
+    body:
+      'Nine crisp little orbs are scattered across every level. Bag them all and the exit door grins open. Miss one and you’ll be back to start, dreaming of orchards.',
+    accent: 'from-yum-red-bright/30 to-yum-red/0',
+    bobDelay: 'bob-delay-1',
+  },
+  {
+    element: ELEMENTS.banana,
+    title: 'Slippery Treasure',
+    tagline: 'The Bonus Booty',
+    body:
+      'Five golden bananas hide in places no sensible cat would go: under saws, behind spikes, perched above bottomless pits. Greed is the path. Greed is the way.',
+    accent: 'from-yum-banana/40 to-yum-banana/0',
+    bobDelay: 'bob-delay-2',
+  },
+];
+
+const PILLARS = [
+  {
+    title: 'Pixel-Perfect Platforming',
+    body:
+      'Buttery 60-fps controls, hand-crafted hitboxes, and a coyote-time so generous it should write greeting cards.',
+  },
+  {
+    title: 'Scrumptious Score Chasing',
+    body:
+      'Every fruit has a flavor and every flavor has a number. Speedrun the apples or hunt the bananas — the leaderboard is yours to gobble.',
+  },
+  {
+    title: 'Charming, Crunchy Pixels',
+    body:
+      'Drawn one tasty pixel at a time. No filters, no shaders, no shame — just sun-warm cream walls and tooth-shaped saws.',
+  },
+];
 
 export default function Home() {
   return (
-    <section className="space-y-6">
-      <div>
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Welcome</h1>
-        <p className="mt-3 max-w-2xl text-slate-300">
-          This is the starter landing page for your game&apos;s static web host.
-          Replace this component with your game&apos;s canvas, launcher, or landing
-          content.
-        </p>
-      </div>
-
-      <div className="flex flex-wrap gap-3">
-        <Link
-          to="/about"
-          className="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-500"
-        >
-          About this project
-        </Link>
-        <a
-          href="https://vite.dev"
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center rounded-md border border-slate-700 px-4 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-slate-800"
-        >
-          Vite docs
-        </a>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-3">
-        {[
-          { title: 'Fast HMR', body: 'Edit and see changes instantly with Vite.' },
-          { title: 'Type safe', body: 'TypeScript strict mode enabled.' },
-          { title: 'Styled', body: 'Tailwind v4 via the official Vite plugin.' },
-        ].map((card) => (
-          <div
-            key={card.title}
-            className="rounded-lg border border-slate-800 bg-slate-900/40 p-4"
-          >
-            <h2 className="font-semibold text-white">{card.title}</h2>
-            <p className="mt-1 text-sm text-slate-400">{card.body}</p>
+    <div className="text-yum-cream-soft">
+      {/* HERO */}
+      <section className="relative overflow-hidden">
+        <div className="sky-stripes absolute inset-0" aria-hidden />
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="space-y-6">
+            <p className="font-pixel text-xs text-yum-pink-bright sm:text-sm">
+              A SCRUMPTIOUS PIXEL PLATFORMER
+            </p>
+            <h1 className="font-pixel text-4xl leading-tight text-yum-cream-soft drop-shadow-[3px_3px_0_rgba(0,0,0,0.6)] sm:text-6xl">
+              <span className="text-yum-pink-bright">YUM</span>{' '}
+              <span className="text-yum-banana">JUMP</span>
+            </h1>
+            <p className="max-w-xl text-lg text-yum-cream/85 sm:text-xl">
+              Hop, snack, and survive a pastel obstacle-course of grabby
+              piggies, spinning saws, and suspicious spikes. Every fruit you
+              grab is a tiny victory. Every fall is a dramatic tragedy.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <a
+                id="play"
+                href="#screenshot"
+                className="inline-flex items-center gap-2 rounded-md bg-yum-pink-bright px-6 py-3 font-pixel text-sm uppercase tracking-wider text-yum-sky shadow-[0_4px_0_#9d2638] transition-transform hover:translate-y-[2px] hover:shadow-[0_2px_0_#9d2638]"
+              >
+                ▶ Play Demo
+              </a>
+              <a
+                href="#cast"
+                className="inline-flex items-center gap-2 rounded-md border-2 border-yum-cream/60 px-6 py-3 font-pixel text-sm uppercase tracking-wider text-yum-cream-soft transition-colors hover:bg-yum-cream/10"
+              >
+                Meet the Cast
+              </a>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2 text-sm text-yum-cream/70">
+              <span className="flex items-center gap-2">
+                <CropTile element={ELEMENTS.apple} displaySize={28} className="bob" />
+                9 apples per stage
+              </span>
+              <span className="flex items-center gap-2">
+                <CropTile
+                  element={ELEMENTS.bananaHud}
+                  displaySize={28}
+                  className="bob bob-delay-1"
+                />
+                5 hidden bananas
+              </span>
+              <span className="flex items-center gap-2">
+                <CropTile
+                  element={ELEMENTS.cherries}
+                  displaySize={28}
+                  className="bob bob-delay-2"
+                />
+                Infinite cherry combos
+              </span>
+            </div>
           </div>
-        ))}
-      </div>
-    </section>
+
+          {/* Floating cast on the right side of the hero */}
+          <div className="relative h-[320px] sm:h-[420px]">
+            <CropTile
+              element={ELEMENTS.player}
+              displaySize={180}
+              className="bob absolute left-4 top-6 drop-shadow-[6px_6px_0_rgba(0,0,0,0.5)]"
+            />
+            <CropTile
+              element={ELEMENTS.pig}
+              displaySize={150}
+              className="bob bob-delay-2 absolute right-2 top-2 drop-shadow-[6px_6px_0_rgba(0,0,0,0.5)]"
+            />
+            <CropTile
+              element={ELEMENTS.cherries}
+              displaySize={90}
+              className="bob bob-delay-1 absolute right-24 bottom-12 drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)]"
+            />
+            <CropTile
+              element={ELEMENTS.banana}
+              displaySize={90}
+              className="bob bob-delay-3 absolute left-32 bottom-2 drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)]"
+            />
+            <CropTile
+              element={ELEMENTS.saw}
+              displaySize={110}
+              className="spin-saw absolute right-32 bottom-24 drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)]"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* SCREENSHOT SHOWCASE */}
+      <section
+        id="screenshot"
+        className="cream-wall border-y-4 border-yum-wood-dark py-16"
+      >
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="mb-8 max-w-2xl">
+            <p className="font-pixel text-xs text-yum-red sm:text-sm">
+              ONE SCREEN. SO MUCH SNACK.
+            </p>
+            <h2 className="mt-2 font-pixel text-2xl text-yum-sky sm:text-4xl">
+              A Whole Stage in a Single Glance
+            </h2>
+            <p className="mt-3 text-yum-sky/80">
+              Spot the cherries dangling from a lonely ledge. Notice the saw
+              warming up its engine. See Patty plotting her next leap. Every
+              level of Yum Jump is a tasty puzzle of risk, reward, and ridiculous
+              snouts.
+            </p>
+          </div>
+
+          <figure className="wood-frame overflow-hidden rounded-lg p-2 shadow-[0_12px_0_rgba(0,0,0,0.35)]">
+            <img
+              src="/yum-jump-screenshot.png"
+              alt="A screenshot of Yum Jump showing Patty Pounce on a wooden platform with cherries, apples, bananas, spikes, a saw blade, and a green pig enemy."
+              className="pixel-art w-full rounded-md border-2 border-black/40"
+            />
+            <figcaption className="px-3 pt-2 pb-1 text-center font-pixel text-[10px] text-yum-cream-soft sm:text-xs">
+              ▲ Stage 3-2 “Sourpig Atrium”
+            </figcaption>
+          </figure>
+
+          {/* HUD callout strip */}
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-lg border-2 border-yum-wood-dark bg-yum-sky p-4 text-yum-cream-soft">
+              <CropTile
+                element={ELEMENTS.score}
+                displaySize={260}
+                className="mx-auto"
+              />
+              <h3 className="mt-3 font-pixel text-sm text-yum-pink-bright">
+                The Sweetscore
+              </h3>
+              <p className="mt-1 text-sm text-yum-cream/80">
+                Every snack you snag rolls into one big crimson tally at the top
+                of the screen. Watch those four little digits race upward —
+                they’re your bragging rights, in fruit form.
+              </p>
+            </div>
+            <div className="rounded-lg border-2 border-yum-wood-dark bg-yum-sky p-4 text-yum-cream-soft">
+              <div className="flex items-end gap-4">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <CropTile element={ELEMENTS.apple} displaySize={36} />
+                    <span className="font-pixel text-yum-cream-soft">x 6 / 9</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CropTile element={ELEMENTS.bananaHud} displaySize={36} />
+                    <span className="font-pixel text-yum-cream-soft">x 1 / 5</span>
+                  </div>
+                </div>
+              </div>
+              <h3 className="mt-3 font-pixel text-sm text-yum-banana">
+                The Snack-O-Meter
+              </h3>
+              <p className="mt-1 text-sm text-yum-cream/80">
+                Apples open the exit. Bananas crack the bonus stage. Both live
+                in the corner, judging you in lovely crimson digits.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CAST: HEROES + ENEMIES */}
+      <section id="cast" className="mx-auto max-w-6xl px-4 py-20">
+        <div className="mb-10 text-center">
+          <p className="font-pixel text-xs text-yum-pink-bright sm:text-sm">
+            THE WHO’S-WHO OF YUM
+          </p>
+          <h2 className="mt-2 font-pixel text-2xl text-yum-cream-soft sm:text-4xl">
+            Meet the Cast
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-yum-cream/75">
+            Every pixel on screen has a job. Some bounce, some spin, some try
+            very hard to nibble you. Here’s the entire menu — heroes,
+            hazards, and the snacks caught in the middle.
+          </p>
+        </div>
+
+        <h3 className="mb-4 font-pixel text-base text-yum-pink-bright">
+          ★ The Hero
+        </h3>
+        <FeatureGrid items={HEROES} />
+
+        <h3 className="mt-12 mb-4 font-pixel text-base text-yum-green">
+          ☠ The Hazards
+        </h3>
+        <FeatureGrid items={ENEMIES} />
+
+        <h3 className="mt-12 mb-4 font-pixel text-base text-yum-banana">
+          ✿ The Treasures
+        </h3>
+        <FeatureGrid items={TREASURES} />
+      </section>
+
+      {/* PILLARS */}
+      <section className="cream-wall border-y-4 border-yum-wood-dark py-16">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="mb-10 max-w-2xl">
+            <p className="font-pixel text-xs text-yum-red sm:text-sm">
+              WHY YOU’LL CHOMP IT UP
+            </p>
+            <h2 className="mt-2 font-pixel text-2xl text-yum-sky sm:text-4xl">
+              Tiny Game. Big Flavor.
+            </h2>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {PILLARS.map((p) => (
+              <article
+                key={p.title}
+                className="rounded-lg border-2 border-yum-wood-dark bg-yum-sky p-5 text-yum-cream-soft shadow-[0_5px_0_rgba(0,0,0,0.25)]"
+              >
+                <h3 className="font-pixel text-sm text-yum-pink-bright">
+                  {p.title}
+                </h3>
+                <p className="mt-2 text-sm text-yum-cream/80">{p.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="mx-auto max-w-4xl px-4 py-20 text-center">
+        <CropTile
+          element={ELEMENTS.player}
+          displaySize={120}
+          className="bob mx-auto mb-6 drop-shadow-[6px_6px_0_rgba(0,0,0,0.5)]"
+        />
+        <h2 className="font-pixel text-2xl text-yum-cream-soft sm:text-4xl">
+          Ready to take a bite?
+        </h2>
+        <p className="mx-auto mt-3 max-w-xl text-yum-cream/75">
+          Yum Jump is in the oven. Drop your eyeballs on the demo, send a
+          screenshot to your gremliest friend, and prepare your jumping thumb.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <a
+            href="#screenshot"
+            className="rounded-md bg-yum-pink-bright px-6 py-3 font-pixel text-sm uppercase tracking-wider text-yum-sky shadow-[0_4px_0_#9d2638] transition-transform hover:translate-y-[2px] hover:shadow-[0_2px_0_#9d2638]"
+          >
+            See It Again
+          </a>
+          <a
+            href="/about"
+            className="rounded-md border-2 border-yum-cream/60 px-6 py-3 font-pixel text-sm uppercase tracking-wider text-yum-cream-soft transition-colors hover:bg-yum-cream/10"
+          >
+            Read the Lore
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function FeatureGrid({ items }: { items: Feature[] }) {
+  return (
+    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((it) => (
+        <article
+          key={it.title}
+          className={`group relative overflow-hidden rounded-xl border-2 border-yum-wood-dark bg-yum-sky-soft p-5 shadow-[0_6px_0_rgba(0,0,0,0.3)] transition-transform hover:-translate-y-1`}
+        >
+          <div
+            className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${it.accent}`}
+            aria-hidden
+          />
+          <div className="relative flex items-start gap-4">
+            <div className="shrink-0 rounded-lg border-2 border-yum-wood-dark bg-yum-sky p-3">
+              <CropTile
+                element={it.element}
+                displaySize={96}
+                className={[
+                  it.spin ? 'spin-saw' : 'bob',
+                  it.bobDelay ?? '',
+                ].join(' ')}
+              />
+            </div>
+            <div className="min-w-0">
+              <h4 className="font-pixel text-sm text-yum-pink-bright">
+                {it.title}
+              </h4>
+              <p className="mt-1 text-xs uppercase tracking-wider text-yum-cream/60">
+                {it.tagline}
+              </p>
+              <p className="mt-2 text-sm text-yum-cream/85">{it.body}</p>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
   );
 }
