@@ -6,6 +6,9 @@ dist/
 dist-ssr/
 build/
 
+# Packaged game demo (large binary; Vite still bundles it into dist/)
+public/downloads/
+
 # Logs
 logs/
 *.log

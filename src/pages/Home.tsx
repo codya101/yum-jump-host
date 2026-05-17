@@ -16,7 +16,7 @@ const HEROES: Feature[] = [
     title: 'Patty Pounce',
     tagline: 'The Pink-Suited Snack Snatcher',
     body:
-      'Equipped with rocket sneakers, retro goggles, and an appetite the size of a small moon, Patty leaps from beam to beam in search of every last morsel. One small jump for cat, one giant gulp for cat-kind.',
+      'Equipped with double-jump sneakers, a stylish pink suit, and an appetite the size of a small moon, Patty leaps around in search of every last morsel.',
     accent: 'from-yum-pink-bright/30 to-yum-pink/0',
     bobDelay: '',
   },
@@ -25,28 +25,28 @@ const HEROES: Feature[] = [
 const ENEMIES: Feature[] = [
   {
     element: ELEMENTS.pig,
-    title: 'Sir Snortimus the Snouty',
-    tagline: 'Boss-piggy of the Wooden Wing',
+    title: 'Angry Pig',
+    tagline: 'Bipolar Bacon Brute',
     body:
-      'A jelly-bellied bandit with goggles he stole from your closet. Bonk him on the head and he pops like a green water balloon — but step in front of those tusks and you’re yesterday’s sausage.',
+      'A common enemy found in Snackland. Bonk him on the head and he pops like a green water balloon. However, if you step in front of that snout, you’re yesterday’s dinner.',
     accent: 'from-yum-green/40 to-yum-green/0',
     bobDelay: 'bob-delay-1',
   },
   {
     element: ELEMENTS.spikes,
-    title: 'Tickle-Tooth Trap',
-    tagline: 'A Row of Surprisingly Pointy Opinions',
+    title: 'Spike Trap',
+    tagline: 'A Row of Pointy Teeth',
     body:
-      'Polished, pristine, and pointing straight up. Looks like a hairbrush. Acts like a hairbrush you should never, ever land on. Time your jumps or rethink your life.',
+      'Polished and pristine. Time your jumps or rethink your life.',
     accent: 'from-slate-300/30 to-slate-400/0',
     bobDelay: 'bob-delay-2',
   },
   {
     element: ELEMENTS.saw,
     title: 'The Whirlybuzz',
-    tagline: 'A Disagreeable Cog with Ambitions',
+    tagline: 'A Saw with Ambitions',
     body:
-      'Spins at exactly the wrong speed. Dreams of becoming a clock, settles for being a hazard. Cling to the wrong wall and it will gladly redesign your haircut.',
+      'Spins around and tries to end your snack-tasting career. Let it get too close and it will gladly chop your body up.',
     accent: 'from-zinc-400/40 to-zinc-500/0',
     spin: true,
     bobDelay: 'bob-delay-3',
@@ -56,28 +56,28 @@ const ENEMIES: Feature[] = [
 const TREASURES: Feature[] = [
   {
     element: ELEMENTS.cherries,
-    title: 'Sugar Bombs',
-    tagline: 'Twin Cherries of Power',
+    title: 'Cherry',
+    tagline: 'Rare Fruit in Stage 1-1',
     body:
-      'Pluck the pair, pocket the points. Cherries are the connoisseur’s candy: a bright +25 to your score and a tiny burst of confetti for your soul.',
+      'They give +50 to your score.',
     accent: 'from-yum-red-bright/35 to-yum-red/0',
     bobDelay: '',
   },
   {
     element: ELEMENTS.apple,
-    title: 'Crunchcrisp',
-    tagline: 'The Stage Goal',
+    title: 'Apple',
+    tagline: 'Common Fruit in Stage 1-1',
     body:
-      'Nine crisp little orbs are scattered across every level. Bag them all and the exit door grins open. Miss one and you’ll be back to start, dreaming of orchards.',
+      'They give +10 to your score.',
     accent: 'from-yum-red-bright/30 to-yum-red/0',
     bobDelay: 'bob-delay-1',
   },
   {
     element: ELEMENTS.banana,
-    title: 'Slippery Treasure',
-    tagline: 'The Bonus Booty',
+    title: 'Banana',
+    tagline: 'Uncommon Fruit in Stage 1-1',
     body:
-      'Five golden bananas hide in places no sensible cat would go: under saws, behind spikes, perched above bottomless pits. Greed is the path. Greed is the way.',
+      'They give +25 to your score.',
     accent: 'from-yum-banana/40 to-yum-banana/0',
     bobDelay: 'bob-delay-2',
   },
@@ -85,19 +85,19 @@ const TREASURES: Feature[] = [
 
 const PILLARS = [
   {
-    title: 'Pixel-Perfect Platforming',
+    title: 'Perfect Platforming',
     body:
-      'Buttery 60-fps controls, hand-crafted hitboxes, and a coyote-time so generous it should write greeting cards.',
+      '60-fps controls.',
   },
   {
     title: 'Scrumptious Score Chasing',
     body:
-      'Every fruit has a flavor and every flavor has a number. Speedrun the apples or hunt the bananas — the leaderboard is yours to gobble.',
+      'Every fruit',
   },
   {
-    title: 'Charming, Crunchy Pixels',
+    title: 'Charming Retro Graphics',
     body:
-      'Drawn one tasty pixel at a time. No filters, no shaders, no shame — just sun-warm cream walls and tooth-shaped saws.',
+      'Drawn one ',
   },
 ];
 
@@ -117,14 +117,15 @@ export default function Home() {
               <span className="text-yum-banana">JUMP</span>
             </h1>
             <p className="max-w-xl text-lg text-yum-cream/85 sm:text-xl">
-              Hop, snack, and survive a pastel obstacle-course of grabby
-              piggies, spinning saws, and suspicious spikes. Every fruit you
+              Hop, snack, and survive a pastel obstacle-course of angry
+              pigs, spinning saws, suspicious spikes, and more. Every fruit you
               grab is a tiny victory. Every fall is a dramatic tragedy.
             </p>
             <div className="flex flex-wrap gap-3">
               <a
                 id="play"
-                href="#screenshot"
+                href="/downloads/Yum-Jump-Demo-Windows.zip"
+                download
                 className="inline-flex items-center gap-2 rounded-md bg-yum-pink-bright px-6 py-3 font-pixel text-sm uppercase tracking-wider text-yum-sky shadow-[0_4px_0_#9d2638] transition-transform hover:translate-y-[2px] hover:shadow-[0_2px_0_#9d2638]"
               >
                 ▶ Play Demo
@@ -139,7 +140,7 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2 text-sm text-yum-cream/70">
               <span className="flex items-center gap-2">
                 <CropTile element={ELEMENTS.apple} displaySize={28} className="bob" />
-                9 apples per stage
+                Apples
               </span>
               <span className="flex items-center gap-2">
                 <CropTile
@@ -147,7 +148,7 @@ export default function Home() {
                   displaySize={28}
                   className="bob bob-delay-1"
                 />
-                5 hidden bananas
+                Bananas
               </span>
               <span className="flex items-center gap-2">
                 <CropTile
@@ -155,7 +156,47 @@ export default function Home() {
                   displaySize={28}
                   className="bob bob-delay-2"
                 />
-                Infinite cherry combos
+                Cherries
+              </span>
+              <span className="flex items-center gap-2">
+                <CropTile
+                  element={ELEMENTS.strawberry}
+                  displaySize={28}
+                  className="bob bob-delay-3"
+                />
+                Strawberries
+              </span>
+              <span className="flex items-center gap-2">
+                <CropTile
+                  element={ELEMENTS.orange}
+                  displaySize={28}
+                  className="bob bob-delay-4"
+                />
+                Oranges
+              </span>
+              <span className="flex items-center gap-2">
+                <CropTile
+                  element={ELEMENTS.kiwi}
+                  displaySize={28}
+                  className="bob"
+                />
+                Kiwis
+              </span>
+              <span className="flex items-center gap-2">
+                <CropTile
+                  element={ELEMENTS.pineapple}
+                  displaySize={28}
+                  className="bob bob-delay-1"
+                />
+                Pineapples
+              </span>
+              <span className="flex items-center gap-2">
+                <CropTile
+                  element={ELEMENTS.melon}
+                  displaySize={28}
+                  className="bob bob-delay-2"
+                />
+                Melons
               </span>
             </div>
           </div>
@@ -185,7 +226,7 @@ export default function Home() {
             <CropTile
               element={ELEMENTS.saw}
               displaySize={110}
-              className="spin-saw absolute right-32 bottom-24 drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)]"
+              className="spin-saw absolute right-4 top-40 drop-shadow-[4px_4px_0_rgba(0,0,0,0.5)]"
             />
           </div>
         </div>
@@ -199,17 +240,11 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-8 max-w-2xl">
             <p className="font-pixel text-xs text-yum-red sm:text-sm">
-              ONE SCREEN. SO MUCH SNACK.
+              SNACK PEEK
             </p>
             <h2 className="mt-2 font-pixel text-2xl text-yum-sky sm:text-4xl">
               A Whole Stage in a Single Glance
             </h2>
-            <p className="mt-3 text-yum-sky/80">
-              Spot the cherries dangling from a lonely ledge. Notice the saw
-              warming up its engine. See Patty plotting her next leap. Every
-              level of Yum Jump is a tasty puzzle of risk, reward, and ridiculous
-              snouts.
-            </p>
           </div>
 
           <figure className="wood-frame overflow-hidden rounded-lg p-2 shadow-[0_12px_0_rgba(0,0,0,0.35)]">
@@ -219,7 +254,7 @@ export default function Home() {
               className="pixel-art w-full rounded-md border-2 border-black/40"
             />
             <figcaption className="px-3 pt-2 pb-1 text-center font-pixel text-[10px] text-yum-cream-soft sm:text-xs">
-              ▲ Stage 3-2 “Sourpig Atrium”
+              ▲ Stage 1-1 “Tasty Beginnings”
             </figcaption>
           </figure>
 
@@ -236,8 +271,8 @@ export default function Home() {
               </h3>
               <p className="mt-1 text-sm text-yum-cream/80">
                 Every snack you snag rolls into one big crimson tally at the top
-                of the screen. Watch those four little digits race upward —
-                they’re your bragging rights, in fruit form.
+                of the screen. Make sure you collect enough. If your score
+                isn't high enough by the end, you cannot advance.
               </p>
             </div>
             <div className="rounded-lg border-2 border-yum-wood-dark bg-yum-sky p-4 text-yum-cream-soft">
@@ -257,8 +292,8 @@ export default function Home() {
                 The Snack-O-Meter
               </h3>
               <p className="mt-1 text-sm text-yum-cream/80">
-                Apples open the exit. Bananas crack the bonus stage. Both live
-                in the corner, judging you in lovely crimson digits.
+                Keep track of your progress for each delectable fruit.
+                See what you're missing out on.
               </p>
             </div>
           </div>
@@ -269,15 +304,15 @@ export default function Home() {
       <section id="cast" className="mx-auto max-w-6xl px-4 py-20">
         <div className="mb-10 text-center">
           <p className="font-pixel text-xs text-yum-pink-bright sm:text-sm">
-            THE WHO’S-WHO OF YUM
+            THE LEGENDS OF SNACKLAND
           </p>
           <h2 className="mt-2 font-pixel text-2xl text-yum-cream-soft sm:text-4xl">
             Meet the Cast
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-yum-cream/75">
             Every pixel on screen has a job. Some bounce, some spin, some try
-            very hard to nibble you. Here’s the entire menu — heroes,
-            hazards, and the snacks caught in the middle.
+            very hard to nibble you. Here’s a sneak peek of the menu — heroes,
+            hazards, and the snacks caught in the middle. Play to discover more.
           </p>
         </div>
 
@@ -335,8 +370,8 @@ export default function Home() {
           Ready to take a bite?
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-yum-cream/75">
-          Yum Jump is in the oven. Drop your eyeballs on the demo, send a
-          screenshot to your gremliest friend, and prepare your jumping thumb.
+          Yum Jump is in the oven. Check out the demo, send a
+          screenshot to your friends, and prepare your jumping thumb.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <a

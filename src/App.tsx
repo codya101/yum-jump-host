@@ -36,7 +36,8 @@ export default function App() {
               Lore
             </NavLink>
             <a
-              href="#play"
+              href="/downloads/Yum-Jump-Demo-Windows.zip"
+              download
               className="rounded-md bg-yum-pink-bright px-3 py-2 text-sm font-semibold uppercase tracking-wider text-yum-sky shadow-[0_3px_0_#9d2638] transition-transform hover:translate-y-[1px] hover:shadow-[0_2px_0_#9d2638]"
             >
               Play
@@ -56,8 +57,8 @@ export default function App() {
             <span className="font-pixel text-yum-cream-soft">YUM JUMP</span>
           </div>
           <p>
-            &copy; {new Date().getFullYear()} Yum Jump. Hand-pixeled with love,
-            jam, and a little bit of banana peel.
+            &copy; {new Date().getFullYear()} Yum Jump. Hand-crafted with love,
+            and a little bit of banana peel.
           </p>
         </div>
       </footer>

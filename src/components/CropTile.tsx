@@ -16,10 +16,12 @@ export type CropElement = {
   x: number;
   /** Top-left Y in source-image pixels. */
   y: number;
-  /** Crop width in source-image pixels. */
+  /** Crop width in source-image pixels (or natural width when `src` is set). */
   w: number;
-  /** Crop height in source-image pixels. */
+  /** Crop height in source-image pixels (or natural height when `src` is set). */
   h: number;
+  /** If set, render this standalone image instead of cropping the sheet. */
+  src?: string;
 };
 
 /**
@@ -27,15 +29,20 @@ export type CropElement = {
  * Eyeballed from the source — tweak if the art shifts.
  */
 export const ELEMENTS = {
-  player: { name: 'Player', x: 460, y: 615, w: 130, h: 165 },
-  pig: { name: 'Pig', x: 1335, y: 430, w: 165, h: 145 },
-  cherries: { name: 'Cherries', x: 5, y: 240, w: 110, h: 110 },
-  apple: { name: 'Apple', x: 5, y: 10, w: 90, h: 90 },
-  banana: { name: 'Banana', x: 850, y: 870, w: 100, h: 110 },
-  bananaHud: { name: 'Banana HUD', x: 35, y: 130, w: 80, h: 65 },
+  player: { name: 'Player', x: 0, y: 0, w: 23, h: 28, src: '/Pink%20Man.png' },
+  pig: { name: 'Pig', x: 0, y: 0, w: 33, h: 29, src: '/Angry%20Pig.png' },
+  cherries: { name: 'Cherries', x: 0, y: 0, w: 16, h: 16, src: '/Cherry%20cropped.png' },
+  apple: { name: 'Apple', x: 0, y: 0, w: 14, h: 16, src: '/Apple%20cropped.png' },
+  banana: { name: 'Banana', x: 0, y: 0, w: 16, h: 16, src: '/Banana%20cropped.png' },
+  bananaHud: { name: 'Banana HUD', x: 0, y: 0, w: 16, h: 16, src: '/Banana%20cropped.png' },
+  kiwi: { name: 'Kiwi', x: 0, y: 0, w: 16, h: 16, src: '/Kiwi%20cropped.png' },
+  melon: { name: 'Melon', x: 0, y: 0, w: 20, h: 14, src: '/Melon%20cropped.png' },
+  orange: { name: 'Orange', x: 0, y: 0, w: 19, h: 16, src: '/Orange%20cropped.png' },
+  pineapple: { name: 'Pineapple', x: 0, y: 0, w: 14, h: 20, src: '/Pineapple%20cropped.png' },
+  strawberry: { name: 'Strawberry', x: 0, y: 0, w: 13, h: 16, src: '/Strawberry%20cropped.png' },
   spikes: { name: 'Spikes', x: 260, y: 380, w: 165, h: 65 },
-  saw: { name: 'Saw', x: 1815, y: 370, w: 110, h: 100 },
-  score: { name: 'Score', x: 1480, y: 5, w: 440, h: 95 },
+  saw: { name: 'Saw', x: 0, y: 0, w: 38, h: 38, src: '/Saw%20cropped.png' },
+  score: { name: 'Score', x: 0, y: 0, w: 338, h: 49, src: '/Score%20cropped.png' },
 } as const satisfies Record<string, CropElement>;
 
 type Props = {
@@ -59,6 +66,22 @@ export function CropTile({
   const scale = displaySize / Math.max(w, h);
   const renderW = w * scale;
   const renderH = h * scale;
+
+  if (element.src) {
+    return (
+      <img
+        src={element.src}
+        alt={ariaLabel ?? element.name}
+        className={`pixel-art ${className}`}
+        style={{
+          width: `${renderW}px`,
+          height: `${renderH}px`,
+          ...style,
+        }}
+      />
+    );
+  }
+
   const bgW = SRC_W * scale;
   const bgH = SRC_H * scale;
   const bgX = -x * scale;

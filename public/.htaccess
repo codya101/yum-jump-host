@@ -27,6 +27,11 @@
     Header set Pragma "no-cache"
     Header set Expires "0"
   </FilesMatch>
+  # Demo download has a stable filename, so cache modestly (1h): avoids
+  # re-downloading ~100MB on every click but still picks up new builds.
+  <FilesMatch "\.zip$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
 
   # Basic security headers.
   Header set X-Content-Type-Options "nosniff"
@@ -51,6 +56,7 @@
   AddType image/svg+xml           .svg
   AddType image/avif              .avif
   AddType image/webp              .webp
+  AddType application/zip         .zip
 </IfModule>
 
 # --- Disable directory listings ---

@@ -1,24 +1,33 @@
 #!/usr/bin/env bash
 # ---------------------------------------------------------------
-# Deploy dist/ to an Apache host over scp/ssh.
+# Deploy dist/ to a static host with rsync over SSH.
 #
 # Usage:
-#   npm run deploy          # full deploy
-#   npm run deploy:dry      # print what would happen, do nothing
+#   npm run deploy          # build + deploy
+#   npm run deploy:dry      # build + show exactly what would change, do nothing
+#
+# Why rsync: it is the standard for static-site deploys. Only changed
+# files are transferred, --delete keeps the remote an exact mirror of
+# dist/, and the whole thing is one idempotent command.
 #
 # Configuration: create a `deploy.env` in the repo root (git-ignored)
 # with these variables, or export them in your shell before running:
 #
-#   DEPLOY_USER=myuser
-#   DEPLOY_HOST=example.com
-#   DEPLOY_PATH=/var/www/mygame          # absolute path on the remote host
-#   DEPLOY_PORT=22                       # optional, default 22
-#   DEPLOY_SSH_KEY=~/.ssh/id_ed25519     # optional, use ssh-agent otherwise
+#   DEPLOY_USER=codya100
+#   DEPLOY_HOST=obraxusgames.com
+#   DEPLOY_PATH=/home/codya100/obraxusgames.com   # absolute path on the host
+#   DEPLOY_PORT=22                                # optional, default 22
+#   DEPLOY_SSH_KEY=~/.ssh/id_rsa                  # optional, use ssh-agent/config otherwise
+#   DEPLOY_EXCLUDES=".well-known"                 # optional, extra space-separated
+#                                                 # paths to never upload or delete
 #
-# The script supports DRY_RUN=1 to print commands without executing them.
+# DRY_RUN=1 prints the rsync plan without changing anything.
 # ---------------------------------------------------------------
 
 set -euo pipefail
+
+# Run from the repo root regardless of where the script is invoked.
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 # Load deploy.env if present.
 if [[ -f "deploy.env" ]]; then
@@ -32,66 +41,59 @@ fi
 DEPLOY_PORT="${DEPLOY_PORT:-22}"
 DRY_RUN="${DRY_RUN:-0}"
 
+# Allow --dry-run / -n as an argument too (works the same as DRY_RUN=1).
+# This keeps the npm scripts cross-platform: a `VAR=1 cmd` prefix is not
+# valid syntax under cmd.exe, which npm uses to run scripts on Windows.
+for arg in "$@"; do
+  case "$arg" in
+    --dry-run|-n) DRY_RUN=1 ;;
+  esac
+done
+
 DIST_DIR="dist"
 if [[ ! -d "$DIST_DIR" ]]; then
   echo "error: $DIST_DIR/ not found. Run 'npm run build' first." >&2
   exit 1
 fi
 
-SSH_OPTS=(-p "$DEPLOY_PORT" -o StrictHostKeyChecking=accept-new)
-SCP_OPTS=(-P "$DEPLOY_PORT" -o StrictHostKeyChecking=accept-new -r -p)
-
-if [[ -n "${DEPLOY_SSH_KEY:-}" ]]; then
-  SSH_OPTS+=(-i "$DEPLOY_SSH_KEY")
-  SCP_OPTS+=(-i "$DEPLOY_SSH_KEY")
+# On Windows the only working rsync is cwrsync (cygwin). Its rsync must
+# use its OWN bundled cygwin ssh -- native Windows OpenSSH fails with
+# "dup() in/out/err failed". Put cwrsync's bin first so `ssh` resolves
+# to the bundled one. Harmless/no-op on Linux and macOS.
+CWRSYNC_BIN="${HOME}/scoop/apps/cwrsync/current/bin"
+if [[ -x "${CWRSYNC_BIN}/ssh.exe" ]]; then
+  PATH="${CWRSYNC_BIN}:${PATH}"
 fi
 
-TARGET="${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}"
-STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
-STAGING="${DEPLOY_PATH%/}/.staging-${STAMP}"
-BACKUP="${DEPLOY_PATH%/}/.backup-${STAMP}"
+# SSH transport for rsync. accept-new trusts a new host on first use
+# but still detects key changes afterwards.
+SSH_CMD="ssh -p ${DEPLOY_PORT} -o StrictHostKeyChecking=accept-new"
+if [[ -n "${DEPLOY_SSH_KEY:-}" ]]; then
+  SSH_CMD="${SSH_CMD} -i ${DEPLOY_SSH_KEY}"
+fi
 
-run() {
-  if [[ "$DRY_RUN" == "1" ]]; then
-    echo "+ $*"
-  else
-    echo "+ $*"
-    eval "$@"
-  fi
-}
-
-echo "==> deploy target: $TARGET (port $DEPLOY_PORT)"
-echo "==> staging: $STAGING"
-echo "==> backup:  $BACKUP"
-[[ "$DRY_RUN" == "1" ]] && echo "==> DRY_RUN=1: commands will be printed, not executed."
-
-# 1. Ensure target directory exists on the host.
-run "ssh ${SSH_OPTS[*]} ${DEPLOY_USER}@${DEPLOY_HOST} 'mkdir -p \"${DEPLOY_PATH}\" \"${STAGING}\"'"
-
-# 2. Upload dist/* into the staging directory.
-run "scp ${SCP_OPTS[*]} ${DIST_DIR}/. ${DEPLOY_USER}@${DEPLOY_HOST}:${STAGING}/"
-
-# 3. Swap: current -> backup, staging -> current. Then prune old backups (keep last 3).
-REMOTE_SWAP=$(cat <<EOF
-set -e
-cd "${DEPLOY_PATH}"
-# Move existing top-level files/dirs (except our staging/backup dirs) to backup.
-mkdir -p "${BACKUP}"
-for entry in * .[!.]* ..?*; do
-  case "\$entry" in
-    .staging-*|.backup-*|''|'*'|'.[!.]*'|'..?*') continue ;;
-  esac
-  [ -e "\$entry" ] && mv "\$entry" "${BACKUP}/" || true
+# -rltpz + --chmod, not -a: -p makes rsync enforce permissions on every
+# run, and --chmod overrides the (wrong, 0700) perms that files copied
+# from Windows/cygwin would otherwise get -- forcing dirs 755, files 644
+# so the web server can read them (otherwise 403). This is idempotent
+# and self-healing: a re-deploy fixes perms even on unchanged files.
+# Never upload or delete .dh-diag -- DreamHost's root-owned diagnostics
+# symlink, which must be left alone.
+RSYNC_OPTS=(-rltpz --chmod=D755,F644 --delete --human-readable --itemize-changes)
+RSYNC_OPTS+=(--exclude='.dh-diag')
+for ex in ${DEPLOY_EXCLUDES:-}; do
+  RSYNC_OPTS+=(--exclude="${ex}")
 done
-# Promote staging contents to current.
-mv "${STAGING}"/* "${DEPLOY_PATH}"/ 2>/dev/null || true
-mv "${STAGING}"/.[!.]* "${DEPLOY_PATH}"/ 2>/dev/null || true
-rmdir "${STAGING}" || true
-# Keep only the 3 newest backups.
-ls -1dt "${DEPLOY_PATH%/}"/.backup-* 2>/dev/null | tail -n +4 | xargs -r rm -rf
-EOF
-)
+[[ "$DRY_RUN" == "1" ]] && RSYNC_OPTS+=(--dry-run)
 
-run "ssh ${SSH_OPTS[*]} ${DEPLOY_USER}@${DEPLOY_HOST} \"${REMOTE_SWAP//\"/\\\"}\""
+TARGET="${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH%/}/"
+
+echo "==> deploy target: ${TARGET} (port ${DEPLOY_PORT})"
+echo "==> source:        ${DIST_DIR}/"
+if [[ "$DRY_RUN" == "1" ]]; then
+  echo "==> DRY_RUN=1: showing the rsync plan, nothing will change."
+fi
+
+rsync "${RSYNC_OPTS[@]}" -e "${SSH_CMD}" "${DIST_DIR}/" "${TARGET}"
 
 echo "==> done."
