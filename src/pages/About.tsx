@@ -17,39 +17,36 @@ export default function About() {
             PATTY POUNCE
           </h2>
           <p className="text-sm text-yum-cream/80">
-            Pastry chef by day. Daredevil platforming legend by also-day.
+            Pastry chef & platforming legend.
           </p>
         </div>
       </div>
 
       <div className="prose prose-invert mt-8 max-w-none text-yum-cream/90">
         <p>
-          Long ago, the orchards of Crumbington floated in the sky on planks of
-          warm cinnamon wood. Fruit grew wild. Pigs grew jealous. And somewhere
-          in a small bakery, a pink-suited cat named{' '}
-          <strong className="text-yum-pink-bright">Patty Pounce</strong> dipped
-          a brioche into a cup of espresso and decided enough was enough.
+          The game takes place in Snackland. The main character is
+          a pink-suited baker named{' '}
+          <strong className="text-yum-pink-bright">Patty Pounce</strong> who is on a
+          mission to gather fruits for the desserts she sells at her bakery.
         </p>
         <p>
-          The pigs had stolen every cherry. Every banana. Every crisp little
-          apple. They installed{' '}
-          <strong className="text-yum-cream-soft">spinning saws</strong> as
-          doorbells. They lined their hallways with{' '}
-          <strong className="text-yum-cream-soft">spikes</strong> they insisted
-          were “decorative.” Patty laced up her rocket sneakers, adjusted her
-          goggles, and leapt into the orchards to take it all back, one tasty
-          pixel at a time.
+          The fruits are guarded by various obstacles. There are{' '}
+          <strong className="text-yum-cream-soft">spinning saws</strong> trying
+          to chop you up. The walls and floors are lined with{' '}
+          <strong className="text-yum-cream-soft">spikes</strong>.
+          Patty is determined to get those fruits, no matter what. Using her rocket
+          sneakers, she can double jump, wall slide, and wall jump her way through the
+          treacherous terrain. She’s a plucky little baker with a big appetite for adventure.
         </p>
         <p>
           <strong className="text-yum-banana">Yum Jump</strong> is a love
           letter to the platformers of the SNES era — quick, bouncy, and
-          stuffed with secrets. Every level is hand-pixeled. Every fruit is
-          hand-counted. Every saw is hand-spun.
+          stuffed with secrets. The game is designed to be a short and sweet treat,
+          perfect for a quick break or a weekend binge.
         </p>
         <p>
-          The screenshots, music, and silly little physics jokes were made by a
-          tiny team that believes games should taste like dessert: short, rich,
-          and gone too soon.
+          Made by <a href="https://www.obraxus.com" className="text-yum-pink-bright hover:underline">Obraxus Games</a>,
+          a one-person studio run by Antonio Codignotto.
         </p>
       </div>
 

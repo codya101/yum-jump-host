@@ -25,7 +25,7 @@ export default function App() {
               className="bob shrink-0 transition-transform group-hover:scale-110"
             />
             <span className="font-pixel text-lg text-yum-red-bright drop-shadow-[2px_2px_0_rgba(0,0,0,0.5)] sm:text-xl">
-              YUM JUMP
+              OBRAXUS GAMES
             </span>
           </NavLink>
           <div className="flex gap-1">
@@ -57,8 +57,7 @@ export default function App() {
             <span className="font-pixel text-yum-cream-soft">YUM JUMP</span>
           </div>
           <p>
-            &copy; {new Date().getFullYear()} Yum Jump. Hand-crafted with love,
-            and a little bit of banana peel.
+            &copy; {new Date().getFullYear()} Obraxus Games
           </p>
         </div>
       </footer>

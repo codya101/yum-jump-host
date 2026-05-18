@@ -87,17 +87,17 @@ const PILLARS = [
   {
     title: 'Perfect Platforming',
     body:
-      '60-fps controls.',
+      '60-fps. Repsponsive. Double jump, wall slide/jump, and more.',
   },
   {
     title: 'Scrumptious Score Chasing',
     body:
-      'Every fruit',
+      'Every fruit you grab adds to your score. Reach the end of the stage with a high enough score, and you can advance to the next level.',
   },
   {
     title: 'Charming Retro Graphics',
     body:
-      'Drawn one ',
+      'Brings you back to the golden age of pixel art platformers, with a modern twist of vibrant colors and smooth animations.',
   },
 ];
 
@@ -110,16 +110,17 @@ export default function Home() {
         <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="space-y-6">
             <p className="font-pixel text-xs text-yum-pink-bright sm:text-sm">
-              A SCRUMPTIOUS PIXEL PLATFORMER
+              A 2D PIXEL PLATFORMER
             </p>
             <h1 className="font-pixel text-4xl leading-tight text-yum-cream-soft drop-shadow-[3px_3px_0_rgba(0,0,0,0.6)] sm:text-6xl">
               <span className="text-yum-pink-bright">YUM</span>{' '}
               <span className="text-yum-banana">JUMP</span>
             </h1>
             <p className="max-w-xl text-lg text-yum-cream/85 sm:text-xl">
-              Hop, snack, and survive a pastel obstacle-course of angry
-              pigs, spinning saws, suspicious spikes, and more. Every fruit you
-              grab is a tiny victory. Every fall is a dramatic tragedy.
+              Jump, collect fruits, and survive a pastel obstacle-course of angry
+              pigs, spinning saws, spike traps, and more. Every fruit you
+              grab adds to your score. Reach the end of the stage with a high enough
+              score, and you can advance to the next level.
             </p>
             <div className="flex flex-wrap gap-3">
               <a
@@ -240,7 +241,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-8 max-w-2xl">
             <p className="font-pixel text-xs text-yum-red sm:text-sm">
-              SNACK PEEK
+              SNEAK PEEK
             </p>
             <h2 className="mt-2 font-pixel text-2xl text-yum-sky sm:text-4xl">
               A Whole Stage in a Single Glance
@@ -249,12 +250,12 @@ export default function Home() {
 
           <figure className="wood-frame overflow-hidden rounded-lg p-2 shadow-[0_12px_0_rgba(0,0,0,0.35)]">
             <img
-              src="/yum-jump-screenshot.png"
+              src="/img/yum-jump-screenshot.png"
               alt="A screenshot of Yum Jump showing Patty Pounce on a wooden platform with cherries, apples, bananas, spikes, a saw blade, and a green pig enemy."
               className="pixel-art w-full rounded-md border-2 border-black/40"
             />
             <figcaption className="px-3 pt-2 pb-1 text-center font-pixel text-[10px] text-yum-cream-soft sm:text-xs">
-              ▲ Stage 1-1 “Tasty Beginnings”
+              ▲ Stage 1-1
             </figcaption>
           </figure>
 
@@ -270,7 +271,7 @@ export default function Home() {
                 The Sweetscore
               </h3>
               <p className="mt-1 text-sm text-yum-cream/80">
-                Every snack you snag rolls into one big crimson tally at the top
+                Every fruit you grab adds to your score at the top right
                 of the screen. Make sure you collect enough. If your score
                 isn't high enough by the end, you cannot advance.
               </p>
@@ -289,10 +290,10 @@ export default function Home() {
                 </div>
               </div>
               <h3 className="mt-3 font-pixel text-sm text-yum-banana">
-                The Snack-O-Meter
+                The Fruit Count
               </h3>
               <p className="mt-1 text-sm text-yum-cream/80">
-                Keep track of your progress for each delectable fruit.
+                Keep track of your progress for each type of fruit.
                 See what you're missing out on.
               </p>
             </div>
@@ -310,9 +311,8 @@ export default function Home() {
             Meet the Cast
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-yum-cream/75">
-            Every pixel on screen has a job. Some bounce, some spin, some try
-            very hard to nibble you. Here’s a sneak peek of the menu — heroes,
-            hazards, and the snacks caught in the middle. Play to discover more.
+            Here’s a brief overview of the cast — heroes,
+            hazards, and the fruits. Play to discover more.
           </p>
         </div>
 
@@ -337,7 +337,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-10 max-w-2xl">
             <p className="font-pixel text-xs text-yum-red sm:text-sm">
-              WHY YOU’LL CHOMP IT UP
+              WHY YOU’LL LOVE IT
             </p>
             <h2 className="mt-2 font-pixel text-2xl text-yum-sky sm:text-4xl">
               Tiny Game. Big Flavor.
