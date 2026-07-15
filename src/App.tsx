@@ -35,13 +35,12 @@ export default function App() {
             <NavLink to="/about" className={navLinkClass}>
               Lore
             </NavLink>
-            <a
-              href="/downloads/Yum-Jump-Demo-Windows.zip"
-              download
+            <NavLink
+              to="/play"
               className="rounded-md bg-yum-pink-bright px-3 py-2 text-sm font-semibold uppercase tracking-wider text-yum-sky shadow-[0_3px_0_#9d2638] transition-transform hover:translate-y-[1px] hover:shadow-[0_2px_0_#9d2638]"
             >
               Play
-            </a>
+            </NavLink>
           </div>
         </nav>
       </header>
@@ -54,7 +53,7 @@ export default function App() {
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-4 py-8 text-center text-sm text-yum-cream/70 sm:flex-row sm:justify-between sm:text-left">
           <div className="flex items-center gap-3">
             <CropTile element={ELEMENTS.cherries} displaySize={36} className="bob" />
-            <span className="font-pixel text-yum-cream-soft">YUM JUMP</span>
+            <span className="font-title text-2xl text-[#f30000]">Yum Jump</span>
           </div>
           <p>
             &copy; {new Date().getFullYear()} Obraxus Games

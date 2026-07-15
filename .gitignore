@@ -9,6 +9,9 @@ build/
 # Packaged game demo (large binary; Vite still bundles it into dist/)
 public/downloads/
 
+# WebGL player build (large binary; Vite still bundles it into dist/)
+public/game/
+
 # Logs
 logs/
 *.log

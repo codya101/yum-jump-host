@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { CropTile, ELEMENTS, type CropElement } from '../components/CropTile';
 
 type Feature = {
@@ -112,9 +113,8 @@ export default function Home() {
             <p className="font-pixel text-xs text-yum-pink-bright sm:text-sm">
               A 2D PIXEL PLATFORMER
             </p>
-            <h1 className="font-pixel text-4xl leading-tight text-yum-cream-soft drop-shadow-[3px_3px_0_rgba(0,0,0,0.6)] sm:text-6xl">
-              <span className="text-yum-pink-bright">YUM</span>{' '}
-              <span className="text-yum-banana">JUMP</span>
+            <h1 className="font-title text-7xl leading-none text-[#f30000] drop-shadow-[3px_3px_0_rgba(0,0,0,0.6)] sm:text-8xl">
+              Yum Jump
             </h1>
             <p className="max-w-xl text-lg text-yum-cream/85 sm:text-xl">
               Jump, collect fruits, and survive a pastel obstacle-course of angry
@@ -123,13 +123,19 @@ export default function Home() {
               score, and you can advance to the next level.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a
+              <Link
                 id="play"
-                href="/downloads/Yum-Jump-Demo-Windows.zip"
-                download
+                to="/play"
                 className="inline-flex items-center gap-2 rounded-md bg-yum-pink-bright px-6 py-3 font-pixel text-sm uppercase tracking-wider text-yum-sky shadow-[0_4px_0_#9d2638] transition-transform hover:translate-y-[2px] hover:shadow-[0_2px_0_#9d2638]"
               >
                 ▶ Play Demo
+              </Link>
+              <a
+                href="/downloads/Yum-Jump-Demo-Windows.zip"
+                download
+                className="inline-flex items-center gap-2 rounded-md border-2 border-yum-cream/60 px-6 py-3 font-pixel text-sm uppercase tracking-wider text-yum-cream-soft transition-colors hover:bg-yum-cream/10"
+              >
+                ⤓ Download for Windows
               </a>
               <a
                 href="#cast"

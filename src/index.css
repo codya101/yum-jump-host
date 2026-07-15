@@ -1,10 +1,22 @@
 @import 'tailwindcss';
 
+/* Self-hosted game title font (Star Crush) so the site wordmark matches the
+   in-game "Yum Jump" logo. Same .ttf the Unity TextMesh Pro asset is built
+   from. */
+@font-face {
+  font-family: 'Star Crush';
+  src: url('/fonts/StarCrush.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-sans:
     'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
   --font-pixel: 'Press Start 2P', 'Courier New', monospace;
+  --font-title: 'Star Crush', 'Press Start 2P', cursive;
 
   --color-yum-sky: #1a1424;
   --color-yum-sky-soft: #2a2138;
@@ -42,6 +54,12 @@ body {
 .font-pixel {
   font-family: var(--font-pixel);
   letter-spacing: 0.02em;
+}
+
+/* Game "Yum Jump" wordmark, in the in-game Star Crush face. */
+.font-title {
+  font-family: var(--font-title);
+  letter-spacing: 0.01em;
 }
 
 .pixel-art {

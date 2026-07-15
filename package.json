@@ -15,10 +15,11 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md,json}\"",
     "clean": "rimraf dist",
     "build:game": "bash ./scripts/build-game.sh",
+    "build:webgl": "bash ./scripts/build-webgl.sh",
     "package:demo": "bash ./scripts/package-demo.sh",
     "deploy": "npm run build && bash ./scripts/deploy.sh",
     "deploy:dry": "npm run build && bash ./scripts/deploy.sh --dry-run",
-    "release": "npm run build:game && npm run package:demo && npm run deploy"
+    "release": "npm run build:game && npm run package:demo && npm run build:webgl && npm run deploy"
   },
   "dependencies": {
     "react": "^19.0.0",
